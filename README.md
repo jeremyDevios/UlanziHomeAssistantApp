@@ -61,6 +61,8 @@ Update the sensor value in the new custom app:
 
 ![Capture d’écran 2023-04-24 à 11 36 07](https://user-images.githubusercontent.com/33576918/233959331-51b60512-6f33-4561-a686-8366caee5ae5.png)
 
+![image](https://user-images.githubusercontent.com/33576918/233966331-e836d712-512e-4132-bb9f-504ada3b591b.png)
+
 This automation will, when the "Current App" switches to the created application "outsidetemperature", update the content displayed on the screen with the value of the outside temperature present in the Home Assistant Meto application.
 
 Follow the tutorial of [Smart Home Junkie](https://youtu.be/N0NKPJzGHuA?t=596) to find and download icons from ID (https://developer.lametric.com/icons)
@@ -69,13 +71,34 @@ Here is the result:
 
 ![temperatureApp](https://user-images.githubusercontent.com/33576918/233962280-b6e45012-a0fa-4573-b52b-9ce3ae5b4f5d.gif)
 
-Here are some other examples:
+### Some other examples:
 
-Bitcoin Price:
+#### Bitcoin Price:
 
 ![bitcoinPriceApp](https://user-images.githubusercontent.com/33576918/233962405-0a1f2acd-31f2-480f-8b75-a8b9722b8712.gif)
 
-Solar Panel Watt:
+Integrate Kraken Bitcoin Price in Home Assistant following [tutorial](https://peyanski.com/home-assistant-bitcoin-monitoring-how-to/)
+Define a new custom app, for example 'bitcoin', by publish a custom app message:
+
+Subject:
+```ruby
+awtrix_2fc7d8/custom/bitcoin
+```
+Where awtrix_XXXXX correspond to the device name on HomeAssistant
+
+Content:
+```ruby
+service: mqtt.publish
+data:
+  qos: 0
+  retain: false
+  topic: awtrix_2fc7d8/custom/bitcoin
+  payload: >-
+    { "text": "{{states.sensor.xbt_usd_ask.state | round(1) }} $", "icon":
+    "52787",  "color": "F2A900"}
+```
+
+#### Solar Panel Watt:
 
 ![solarPanelWattApp](https://user-images.githubusercontent.com/33576918/233962482-f78cd0ea-e59c-4946-bc04-bdf98a60aad3.gif)
 
